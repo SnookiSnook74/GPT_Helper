@@ -21,15 +21,19 @@ class ChatViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        addSubView()
         setupConstraints()
+        setupView()
+        startDialogue()
+    }
+
+    func setupView() {
         view.backgroundColor = .orange
-        startDilogue()
     }
 }
 
 extension ChatViewController {
-    func startDilogue() {
+    func startDialogue() {
         Task {
             await gptModel.sendMessage("Привет! что ты умеешь?")
         }
@@ -43,7 +47,7 @@ extension ChatViewController {
 }
 
 extension ChatViewController {
-    func setupView() {
+    func addSubView() {
         view.addSubview(answerGPT)
     }
 }
@@ -54,7 +58,7 @@ extension ChatViewController {
             answerGPT.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             answerGPT.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             answerGPT.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            answerGPT.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: -20),
+            answerGPT.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
     }
 }
