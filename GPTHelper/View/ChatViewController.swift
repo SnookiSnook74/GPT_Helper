@@ -9,6 +9,13 @@ import UIKit
 
 class ChatViewController: UIViewController {
     let gptModel = GptViewModel()
+    
+    
+    var inputAreaView: InputAreaView =  {
+        let inputAreaView = InputAreaView()
+        inputAreaView.translatesAutoresizingMaskIntoConstraints = false
+        return inputAreaView
+    } ()
 
     var answerGPT: UILabel = {
         let text = UILabel()
@@ -24,12 +31,14 @@ class ChatViewController: UIViewController {
         addSubView()
         setupConstraints()
         setupView()
-        startDialogue()
+       // startDialogue()
     }
 
     func setupView() {
         view.backgroundColor = .orange
     }
+    
+
 }
 
 extension ChatViewController {
@@ -49,6 +58,7 @@ extension ChatViewController {
 extension ChatViewController {
     func addSubView() {
         view.addSubview(answerGPT)
+        view.addSubview(inputAreaView)
     }
 }
 
@@ -59,6 +69,11 @@ extension ChatViewController {
             answerGPT.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             answerGPT.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             answerGPT.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            inputAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            inputAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            inputAreaView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            inputAreaView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
 }
