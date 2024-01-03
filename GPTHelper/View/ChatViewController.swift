@@ -9,13 +9,12 @@ import UIKit
 
 class ChatViewController: UIViewController {
     let gptModel = GptViewModel()
-    
-    
-    var inputAreaView: InputAreaView =  {
+
+    var inputAreaView: InputAreaView = {
         let inputAreaView = InputAreaView()
         inputAreaView.translatesAutoresizingMaskIntoConstraints = false
         return inputAreaView
-    } ()
+    }()
 
     var answerGPT: UILabel = {
         let text = UILabel()
@@ -31,20 +30,22 @@ class ChatViewController: UIViewController {
         addSubView()
         setupConstraints()
         setupView()
-       // startDialogue()
+        startDialogue()
     }
 
     func setupView() {
-        view.backgroundColor = .orange
+        view.backgroundColor = #colorLiteral(red: 0.9598327279, green: 0.9598327279, blue: 0.9598327279, alpha: 1)
+        title = "GPT"
     }
-    
-
 }
 
 extension ChatViewController {
     func startDialogue() {
-        Task {
-            await gptModel.sendMessage("Привет! что ты умеешь?")
+        inputAreaView.onSendButtonTapped = { text in
+            self.answerGPT.text = ""
+            Task {
+                await self.gptModel.sendMessage(text)
+            }
         }
 
         gptModel.onReceiveStreamMessage = { [weak self] message in
@@ -69,11 +70,11 @@ extension ChatViewController {
             answerGPT.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             answerGPT.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             answerGPT.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
-            inputAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+
+            inputAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             inputAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            inputAreaView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            inputAreaView.heightAnchor.constraint(equalToConstant: 50)
+            inputAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            inputAreaView.heightAnchor.constraint(equalToConstant: 70),
         ])
     }
 }

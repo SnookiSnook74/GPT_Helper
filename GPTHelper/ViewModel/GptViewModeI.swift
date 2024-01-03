@@ -17,14 +17,14 @@ class GptViewModel {
     func sendMessage(_ message: String) async {
         messages.append(Chat(role: .user, content: message))
 
-        let query = ChatQuery(model: .gpt3_5Turbo_16k, messages: messages)
+        let query = ChatQuery(model: .gpt4_1106_preview, messages: messages)
 
         do {
             for try await result in openAI.chatsStream(query: query) {
                 let responseString = result.choices.compactMap { $0.delta.content }
                     .joined(separator: "\n")
                 if let lastMessage = result.choices.last {
-                    messages.append(Chat(role: .assistant, content: lastMessage.delta.content ?? ""))
+                    messages.append(Chat(role: .system, content: lastMessage.delta.content ?? ""))
                 }
                 DispatchQueue.main.async {
                     self.onReceiveStreamMessage?(responseString)
