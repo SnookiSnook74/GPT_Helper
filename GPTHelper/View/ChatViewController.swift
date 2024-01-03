@@ -24,6 +24,7 @@ class ChatViewController: UIViewController {
         text.textColor = .black
         return text
     }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +51,7 @@ extension ChatViewController {
 
         gptModel.onReceiveStreamMessage = { [weak self] message in
             DispatchQueue.main.async {
-                self?.answerGPT.text = (self?.answerGPT.text ?? "") + message
+               self?.answerGPT.text = (self?.answerGPT.text ?? "") + message
             }
         }
     }
@@ -78,3 +79,5 @@ extension ChatViewController {
         ])
     }
 }
+
+

@@ -70,7 +70,7 @@ class InputAreaView: UIView {
         NSLayoutConstraint.activate([
             textField.widthAnchor.constraint(equalToConstant: 280),
             textField.heightAnchor.constraint(equalToConstant: 40),
-            textField.centerYAnchor.constraint(equalTo: centerYAnchor),
+            textField.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10),
             textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
         ])
 
