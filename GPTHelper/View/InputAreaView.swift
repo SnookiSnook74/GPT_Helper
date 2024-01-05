@@ -71,6 +71,7 @@ final class InputAreaView: UIView {
 }
 
 // MARK: - Действия кнопки при отправке
+
 extension InputAreaView {
     func setSendButtonEnabled(_ isEnabled: Bool) {
         sendButton.isEnabled = isEnabled

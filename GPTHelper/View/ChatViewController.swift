@@ -56,12 +56,10 @@ extension ChatViewController {
         }
 
         gptModel.onReceiveStreamMessage = { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.chatTableView.reloadData()
-            }
+            self?.chatTableView.reloadData()
         }
         gptModel.onStreamProcessingCompleted = { [weak self] in
-            self?.inputAreaView.setSendButtonEnabled(true) 
+            self?.inputAreaView.setSendButtonEnabled(true)
         }
     }
 }

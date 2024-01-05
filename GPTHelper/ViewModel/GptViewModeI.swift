@@ -38,9 +38,7 @@ class GptViewModel {
                     .joined(separator: "\n")
                 streamTmp += responseString
                 streamMass[index].message = streamTmp
-                DispatchQueue.main.async {
-                    self.onReceiveStreamMessage?(responseString)
-                }
+                await streamCompite(responseString)
             }
             index += 1
             messages.append(Chat(role: .system, content: streamTmp))
@@ -49,9 +47,14 @@ class GptViewModel {
             print("Ошибка: \(error)")
         }
     }
+
     // MARK: - Ожидание вывода сообщения, чтобы можно было блокировать кнопку отправки
+
     @MainActor private func updateUIAfterStreamCompleted() async {
-               self.onStreamProcessingCompleted?()
-       }
-    
+        onStreamProcessingCompleted?()
+    }
+    // MARK: - Сриминговая передача 
+    @MainActor private func streamCompite(_ str: String) async {
+        onReceiveStreamMessage?(str)
+    }
 }
