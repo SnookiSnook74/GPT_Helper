@@ -6,12 +6,11 @@
 //
 
 import Foundation
+import OpenAI
 
-struct ChatMessage {
-    enum Role {
-        case user, system
-    }
 
-    let role: Role
-    let content: String
+//MARK: - Модель для хранения стриминовых ответов
+struct streamMessages {
+    var message: String
+    var role: Chat.Role
 }

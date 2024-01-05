@@ -7,7 +7,9 @@
 
 import UIKit
 
-class InputAreaView: UIView {
+// MARK: - Поле для ввода сообщений и отправки
+
+final class InputAreaView: UIView {
     var onSendButtonTapped: ((String) -> Void)?
 
     let textField: UITextField = {
@@ -53,7 +55,7 @@ class InputAreaView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupViews()
-        setupConstraints()
+       setupConstraints()
     }
 
     private func setupViews() {
@@ -66,6 +68,10 @@ class InputAreaView: UIView {
         addSubview(sendButton)
     }
 
+   
+}
+
+extension InputAreaView {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             textField.widthAnchor.constraint(equalToConstant: 280),
