@@ -26,7 +26,7 @@ final class GptMessageCell: UITableViewCell {
         imageView.image = UIImage(named: "gpt")
         return imageView
     }()
-    
+
     func configure(with message: String) {
         messageLabel.text = message
     }
@@ -34,6 +34,7 @@ final class GptMessageCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = #colorLiteral(red: 0.9591619372, green: 0.9591619372, blue: 0.9591619372, alpha: 1)
+        selectionStyle = .none
         setupSubviews()
     }
 
@@ -41,9 +42,7 @@ final class GptMessageCell: UITableViewCell {
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
-
 
 extension GptMessageCell {
     private func setupSubviews() {

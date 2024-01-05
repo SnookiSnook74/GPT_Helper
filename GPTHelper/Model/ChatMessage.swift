@@ -8,8 +8,8 @@
 import Foundation
 import OpenAI
 
+// MARK: - Модель для хранения стриминовых ответов
 
-//MARK: - Модель для хранения стриминовых ответов
 struct streamMessages {
     var message: String
     var role: Chat.Role

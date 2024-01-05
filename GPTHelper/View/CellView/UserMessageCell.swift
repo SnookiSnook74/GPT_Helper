@@ -32,6 +32,7 @@ final class UserMessageCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupSubviews()
         backgroundColor = #colorLiteral(red: 0.9591619372, green: 0.9591619372, blue: 0.9591619372, alpha: 1)
+        selectionStyle = .none
     }
 
     @available(*, unavailable)
@@ -45,25 +46,22 @@ final class UserMessageCell: UITableViewCell {
 }
 
 extension UserMessageCell {
-    
     private func setupSubviews() {
         contentView.addSubview(messageLabel)
         contentView.addSubview(avatarImageView)
 
-
         NSLayoutConstraint.activate([
             avatarImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 40), // Ширина аватара
-            avatarImageView.heightAnchor.constraint(equalToConstant: 40), // Высота аватара
+            avatarImageView.widthAnchor.constraint(equalToConstant: 40),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 40),
         ])
 
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: -20),
             messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            messageLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
             messageLabel.trailingAnchor.constraint(equalTo: avatarImageView.leadingAnchor, constant: -10),
         ])
-
     }
 }

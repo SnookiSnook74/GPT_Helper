@@ -43,6 +43,7 @@ final class InputAreaView: UIView {
     @objc private func sendButtonTapped() {
         onSendButtonTapped?(textField.text ?? "")
         textField.text = ""
+        textField.resignFirstResponder()
     }
 
     override init(frame: CGRect) {
@@ -55,7 +56,7 @@ final class InputAreaView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupViews()
-       setupConstraints()
+        setupConstraints()
     }
 
     private func setupViews() {
@@ -67,8 +68,13 @@ final class InputAreaView: UIView {
         addSubview(textField)
         addSubview(sendButton)
     }
+}
 
-   
+// MARK: - Действия кнопки при отправке
+extension InputAreaView {
+    func setSendButtonEnabled(_ isEnabled: Bool) {
+        sendButton.isEnabled = isEnabled
+    }
 }
 
 extension InputAreaView {

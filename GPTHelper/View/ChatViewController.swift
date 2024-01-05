@@ -31,17 +31,24 @@ class ChatViewController: UIViewController {
         addSubView()
         setupConstraints()
         setupView()
-     //   startDialogue()
+        startDialogue()
         setupTable()
+        setupNotifacation()
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
-//MARK: - Основная логика вывода стримига в таблицу
+// MARK: - Основная логика вывода стримига в таблицу
 
 extension ChatViewController {
     func startDialogue() {
         inputAreaView.onSendButtonTapped = { [weak self] text in
+            // Блокировка кнопки отправки сообщения до полного вывода сообщения
+            self?.inputAreaView.setSendButtonEnabled(false)
+
             Task {
                 await self?.gptModel.sendMessage(text)
                 self?.chatTableView.reloadData()
@@ -52,6 +59,9 @@ extension ChatViewController {
             DispatchQueue.main.async {
                 self?.chatTableView.reloadData()
             }
+        }
+        gptModel.onStreamProcessingCompleted = { [weak self] in
+            self?.inputAreaView.setSendButtonEnabled(true) 
         }
     }
 }
@@ -93,6 +103,30 @@ extension ChatViewController: UITableViewDataSource {
             cell.configure(with: gptModel.streamMass[indexPath.row].message)
             return cell
         }
+    }
+}
+
+// MARK: - Работа с клавиатурой
+
+extension ChatViewController {
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            inputAreaView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight + 15)
+        }
+    }
+
+    @objc func keyboardWillHide(notification _: NSNotification) {
+        // Возвращаем inputAreaView на исходное место
+        inputAreaView.transform = .identity
+    }
+}
+
+extension ChatViewController {
+    func setupNotifacation() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }
 

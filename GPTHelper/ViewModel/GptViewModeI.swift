@@ -7,16 +7,18 @@
 
 import Foundation
 
-// MARK: - Для установки зависимости https://github.com/MacPaw/OpenAI.git
+// MARK: - Для установки зависимости в Swift Package Manager  https://github.com/MacPaw/OpenAI.git
+
 import OpenAI
 
-//MARK: - Оснаная работа с API 
+// MARK: - Оснаная работа с API
 
 class GptViewModel {
     var messages: [Chat] = []
     private let openAI = OpenAI(apiToken: "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")
 
     var onReceiveStreamMessage: ((String) -> Void)?
+    var onStreamProcessingCompleted: (() -> Void)?
     var streamTmp = ""
     var streamMass = [streamMessages]()
     var index = 0
@@ -42,8 +44,14 @@ class GptViewModel {
             }
             index += 1
             messages.append(Chat(role: .system, content: streamTmp))
+            await updateUIAfterStreamCompleted()
         } catch {
             print("Ошибка: \(error)")
         }
     }
+    // MARK: - Ожидание вывода сообщения, чтобы можно было блокировать кнопку отправки
+    @MainActor private func updateUIAfterStreamCompleted() async {
+               self.onStreamProcessingCompleted?()
+       }
+    
 }
