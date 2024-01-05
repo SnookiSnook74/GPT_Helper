@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// MARK: - Для установки зависимости https://github.com/MacPaw/OpenAI.git
 import OpenAI
 
 //MARK: - Оснаная работа с API 

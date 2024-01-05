@@ -105,10 +105,9 @@
 		6BCFB5C12B3F0B0000D2E597 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6BCFB5D22B48057500D2E597 /* CellView */,
 				6BCFB5AE2B3F079900D2E597 /* ChatViewController.swift */,
 				6BCFB5CA2B4469D700D2E597 /* InputAreaView.swift */,
-				6BCFB5CE2B46E71500D2E597 /* GptMessageCell.swift */,
-				6BCFB5D02B470F9500D2E597 /* UserMessageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -119,6 +118,15 @@
 				6BCFB5C32B3F0CDE00D2E597 /* GptViewModeI.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6BCFB5D22B48057500D2E597 /* CellView */ = {
+			isa = PBXGroup;
+			children = (
+				6BCFB5CE2B46E71500D2E597 /* GptMessageCell.swift */,
+				6BCFB5D02B470F9500D2E597 /* UserMessageCell.swift */,
+			);
+			path = CellView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
