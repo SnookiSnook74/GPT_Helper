@@ -53,7 +53,9 @@ class GptViewModel {
     @MainActor private func updateUIAfterStreamCompleted() async {
         onStreamProcessingCompleted?()
     }
-    // MARK: - Сриминговая передача 
+
+    // MARK: - Сриминговая передача
+
     @MainActor private func streamCompite(_ str: String) async {
         onReceiveStreamMessage?(str)
     }
