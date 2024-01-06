@@ -52,11 +52,13 @@ extension ChatViewController {
             Task {
                 await self?.gptModel.sendMessage(text)
                 self?.chatTableView.reloadData()
+                self?.scrollToBotton()
             }
         }
 
         gptModel.onReceiveStreamMessage = { [weak self] _ in
             self?.chatTableView.reloadData()
+            self?.scrollToBotton()
         }
         gptModel.onStreamProcessingCompleted = { [weak self] in
             self?.inputAreaView.setSendButtonEnabled(true)
@@ -104,6 +106,13 @@ extension ChatViewController: UITableViewDataSource {
             return cell
         }
     }
+
+    // Автоматический скролл при больших текстах
+    func scrollToBotton() {
+        let lastRow = max(0, gptModel.streamMass.count - 1)
+        let indexPath = IndexPath(row: lastRow, section: 0)
+        chatTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+    }
 }
 
 // MARK: - Работа с клавиатурой
@@ -121,6 +130,8 @@ extension ChatViewController {
         inputAreaView.transform = .identity
     }
 }
+
+// MARK: - Подписки на события
 
 extension ChatViewController {
     func setupNotifacation() {
