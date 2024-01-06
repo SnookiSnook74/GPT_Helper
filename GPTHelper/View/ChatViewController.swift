@@ -95,8 +95,8 @@ extension ChatViewController: UITableViewDataSource {
         if gptModel.streamMass[indexPath.row].role == .system {
             let cell = tableView.dequeueReusableCell(withIdentifier: "gpt", for: indexPath) as! GptMessageCell
             let message = gptModel.streamMass[indexPath.row].message
-               let processedMessage = message.applyingBoldToSubstringsEnclosedInAsterisks()
-               cell.configure(with: processedMessage)
+            let processedMessage = message.applyingBoldToSubstringsEnclosedInAsterisks()
+            cell.configure(with: processedMessage)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserMessageCell
@@ -118,7 +118,6 @@ extension ChatViewController {
     }
 
     @objc func keyboardWillHide(notification _: NSNotification) {
-        // Возвращаем inputAreaView на исходное место
         inputAreaView.transform = .identity
     }
 }
@@ -147,5 +146,3 @@ extension ChatViewController {
         ])
     }
 }
-
-
