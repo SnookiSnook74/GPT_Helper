@@ -5,6 +5,7 @@
 //  Created by DonHalab on 29.12.2023.
 //
 
+import OpenAI
 import UIKit
 
 // MARK: - Основой контроллер для поля чата
@@ -46,7 +47,6 @@ class ChatViewController: UIViewController {
 extension ChatViewController {
     func startDialogue() {
         inputAreaView.onSendButtonTapped = { [weak self] text in
-            // Блокировка кнопки отправки сообщения до полного вывода сообщения
             self?.inputAreaView.setSendButtonEnabled(false)
 
             Task {
@@ -94,7 +94,9 @@ extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if gptModel.streamMass[indexPath.row].role == .system {
             let cell = tableView.dequeueReusableCell(withIdentifier: "gpt", for: indexPath) as! GptMessageCell
-            cell.configure(with: gptModel.streamMass[indexPath.row].message)
+            let message = gptModel.streamMass[indexPath.row].message
+               let processedMessage = message.applyingBoldToSubstringsEnclosedInAsterisks()
+               cell.configure(with: processedMessage)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserMessageCell
@@ -145,3 +147,5 @@ extension ChatViewController {
         ])
     }
 }
+
+

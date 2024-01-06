@@ -27,8 +27,8 @@ final class GptMessageCell: UITableViewCell {
         return imageView
     }()
 
-    func configure(with message: String) {
-        messageLabel.text = message
+    func configure(with message: NSAttributedString) {
+        messageLabel.attributedText = message
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
