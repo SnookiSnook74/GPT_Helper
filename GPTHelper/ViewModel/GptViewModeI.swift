@@ -15,7 +15,7 @@ import OpenAI
 
 class GptViewModel {
     var messages: [Chat] = []
-    private let openAI = OpenAI(apiToken: "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")
+    private let openAI = OpenAI(apiToken: "")
 
     var onReceiveStreamMessage: ((String) -> Void)?
     var onStreamProcessingCompleted: (() -> Void)?
