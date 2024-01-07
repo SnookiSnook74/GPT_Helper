@@ -77,8 +77,10 @@ extension ChatViewController {
     func setupView() {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         title = "GPT"
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
-
+    
     func setupTable() {
         chatTableView.dataSource = self
         chatTableView.register(GptMessageCell.self, forCellReuseIdentifier: "gpt")
@@ -129,6 +131,12 @@ extension ChatViewController {
     @objc func keyboardWillHide(notification _: NSNotification) {
         inputAreaView.transform = .identity
     }
+    
+    // MARK: - Обработка нажатий для скрытия клавиатуры
+    @objc func dismissKeyboard() {
+          view.endEditing(true)
+      }
+
 }
 
 // MARK: - Подписки на события
@@ -152,7 +160,7 @@ extension ChatViewController {
 
             inputAreaView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             inputAreaView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            inputAreaView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            inputAreaView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             inputAreaView.heightAnchor.constraint(equalToConstant: 70),
         ])
     }

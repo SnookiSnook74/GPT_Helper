@@ -16,10 +16,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
 
         let chatViewController = ChatViewController()
+        let voiceViewController = VoiceViewController()
+        
+        let tabBarController = UITabBarController()
+        
+        tabBarController.viewControllers = [chatViewController, voiceViewController]
+        UITabBar.appearance().backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        chatViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+        voiceViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 1)
 
-        let navigationController = UINavigationController(rootViewController: chatViewController)
-
-        window.rootViewController = navigationController
+        window.rootViewController = tabBarController
         window.makeKeyAndVisible()
         self.window = window
     }
