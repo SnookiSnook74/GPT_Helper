@@ -17,14 +17,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let chatViewController = ChatViewController()
         let voiceViewController = VoiceViewController()
-        
+
         let tabBarController = UITabBarController()
-        
+
         tabBarController.viewControllers = [chatViewController, voiceViewController]
         UITabBar.appearance().backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        
-        chatViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-        voiceViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .history, tag: 1)
+
+//        let customTabBarItem = UITabBarItem(
+//            title: "Chat", // Замените на ваш текст
+//            image: UIImage(named: "Chat"), // Замените на имя вашего обычного изображения
+//            selectedImage: UIImage(named: "Chat") // Замените на имя вашего изображения для выделенного состояния
+//        )
+
+        chatViewController.tabBarItem = UITabBarItem(title: "Chat", image: UIImage(named: "Chat"), selectedImage: UIImage(named: "Chat"))
+        voiceViewController.tabBarItem = UITabBarItem(title: "Voice", image: UIImage(named: "VoiceTab"), selectedImage: UIImage(named: "VoiceTab"))
 
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

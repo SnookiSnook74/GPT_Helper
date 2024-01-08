@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="27px" viewBox="0 0 25 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Path</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1" transform="translate(-34, -763)" fill="#2A87FF" stroke="#FFFFFF" stroke-width="1.1697479">
+            <g id="Group-5" transform="translate(0, 752)">
+                <g id="Group-16" transform="translate(27, 1)">
+                    <g id="Group-12" transform="translate(3, 0)">
+                        <g id="Group-14" transform="translate(5, 9)">
+                            <path d="M4.21164719,27.1850227 C4.35801151,27.3399723 4.58588114,27.3873523 4.78220145,27.3036558 L9.80488462,25.1611075 C10.4337087,25.2633661 11.0697674,25.3150458 11.7069069,25.3156466 C17.5510335,25.3111085 22.4949174,21.0080784 23.2862977,15.237241 C24.077678,9.46640353 20.4736529,3.99902736 14.8450769,2.4317449 C9.21650089,0.864462442 3.2909777,3.67832662 0.966525014,9.02227854 C-1.35792768,14.3662305 0.632144642,20.6000274 5.62760236,23.6228583 L4.12666128,26.6101929 C4.03117405,26.800596 4.06511418,27.0301611 4.21164719,27.1850227 Z" id="Path"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

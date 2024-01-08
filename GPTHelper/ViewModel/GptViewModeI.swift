@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 // MARK: - Для установки зависимости в Swift Package Manager  https://github.com/MacPaw/OpenAI.git
 
 import OpenAI
@@ -15,19 +14,18 @@ import OpenAI
 // MARK: - Оснаная работа с API
 
 class GptViewModel {
-    var messages: [Chat] = []
-    private let openAI = OpenAI(apiToken: "")
 
     var onReceiveStreamMessage: ((String) -> Void)?
     var onStreamProcessingCompleted: (() -> Void)?
     var streamTmp = ""
-    var streamMass = [streamMessages]()
+    var streamMass: [streamMessages] = []
     var index = 0
     var voiceComplite: (() -> Void)?
-    
+
     // MARK: - Работа с текстом
 
     func sendMessage(_ message: String) async {
+        
         messages.append(Chat(role: .user, content: message))
         streamMass.append(streamMessages(message: messages[index].content ?? "ошибка", role: .user))
         index += 1
@@ -64,6 +62,3 @@ class GptViewModel {
         onReceiveStreamMessage?(str)
     }
 }
-
-
-

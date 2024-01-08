@@ -80,7 +80,7 @@ extension ChatViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
-    
+
     func setupTable() {
         chatTableView.dataSource = self
         chatTableView.register(GptMessageCell.self, forCellReuseIdentifier: "gpt")
@@ -104,11 +104,12 @@ extension ChatViewController: UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserMessageCell
-            cell.configure(with: gptModel.streamMass[indexPath.row].message)
+            // Пропускаем первые два сообщения которые есть в массиве для настройки контекста 
+            cell.configure(with: messages[indexPath.row + 2].content ?? "")
             return cell
         }
     }
-
+ 
     // Автоматический скролл при больших текстах
     func scrollToBotton() {
         let lastRow = max(0, gptModel.streamMass.count - 1)
@@ -124,19 +125,19 @@ extension ChatViewController {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-            inputAreaView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight + 15)
+            inputAreaView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight + 90)
         }
     }
 
     @objc func keyboardWillHide(notification _: NSNotification) {
         inputAreaView.transform = .identity
     }
-    
-    // MARK: - Обработка нажатий для скрытия клавиатуры
-    @objc func dismissKeyboard() {
-          view.endEditing(true)
-      }
 
+    // MARK: - Обработка нажатий для скрытия клавиатуры
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 // MARK: - Подписки на события
