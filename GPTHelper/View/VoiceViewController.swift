@@ -13,6 +13,25 @@ class VoiceViewController: UIViewController {
     let gptVoice = VoiceViewModel()
     let gptChat = GptViewModel()
 
+    let stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.distribution = .equalSpacing
+        stack.spacing = 20
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
+    let instruction: UILabel = {
+        let instruction = UILabel()
+        instruction.text = "Нажмите и задайте вопрос"
+        instruction.font = .systemFont(ofSize: 20, weight: .bold)
+        instruction.textAlignment = .center
+        instruction.translatesAutoresizingMaskIntoConstraints = false
+        return instruction
+    }()
+
     let voiceButton: UIButton = {
         let voiceButton = UIButton()
         voiceButton.translatesAutoresizingMaskIntoConstraints = false
@@ -21,8 +40,14 @@ class VoiceViewController: UIViewController {
         if let image = UIImage(named: "voice") {
             voiceButton.setBackgroundImage(image, for: .normal)
         }
-
         return voiceButton
+    }()
+
+    let voiceAnimate: AudioVisualizationView = {
+        let voiceAnimate = AudioVisualizationView()
+        voiceAnimate.translatesAutoresizingMaskIntoConstraints = false
+        voiceAnimate.isHidden = true
+        return voiceAnimate
     }()
 
     override func viewDidLoad() {
@@ -39,7 +64,10 @@ class VoiceViewController: UIViewController {
 
 extension VoiceViewController {
     func setupSubview() {
-        view.addSubview(voiceButton)
+        stackView.addArrangedSubview(voiceButton)
+        stackView.addArrangedSubview(instruction)
+        view.addSubview(stackView)
+        view.addSubview(voiceAnimate)
     }
 
     private func setupVoiceButton() {
@@ -83,12 +111,19 @@ extension VoiceViewController {
         let audioFilename = documentPath.appendingPathComponent("voiceRecording.m4a")
         var result = ""
 
+        voiceAnimate.isHidden = false
+        stackView.isHidden = true
+        voiceAnimate.startAnimating()
+
         do {
             let audioData = try Data(contentsOf: audioFilename)
             Task {
                 await result = gptVoice.voiceConvert(data: audioData)
                 await gptChat.sendMessage(result)
                 await gptVoice.voice(messages.last?.content ?? "Повтори")
+                voiceAnimate.isHidden = true
+                stackView.isHidden = false
+                voiceAnimate.stopAnimating()
             }
 
         } catch {
@@ -101,10 +136,18 @@ extension VoiceViewController {
 extension VoiceViewController {
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            voiceButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            voiceButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stackView.widthAnchor.constraint(equalTo: view.widthAnchor),
+
             voiceButton.widthAnchor.constraint(equalToConstant: 150),
             voiceButton.heightAnchor.constraint(equalToConstant: 150),
+
+            voiceAnimate.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            voiceAnimate.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            voiceAnimate.widthAnchor.constraint(equalToConstant: 150),
+            voiceAnimate.heightAnchor.constraint(equalToConstant: 150),
+
         ])
     }
 }

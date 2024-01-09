@@ -23,12 +23,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.viewControllers = [chatViewController, voiceViewController]
         UITabBar.appearance().backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
 
-//        let customTabBarItem = UITabBarItem(
-//            title: "Chat", // Замените на ваш текст
-//            image: UIImage(named: "Chat"), // Замените на имя вашего обычного изображения
-//            selectedImage: UIImage(named: "Chat") // Замените на имя вашего изображения для выделенного состояния
-//        )
-
         chatViewController.tabBarItem = UITabBarItem(title: "Chat", image: UIImage(named: "Chat"), selectedImage: UIImage(named: "Chat"))
         voiceViewController.tabBarItem = UITabBarItem(title: "Voice", image: UIImage(named: "VoiceTab"), selectedImage: UIImage(named: "VoiceTab"))
 

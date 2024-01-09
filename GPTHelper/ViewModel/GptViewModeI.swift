@@ -14,7 +14,6 @@ import OpenAI
 // MARK: - Оснаная работа с API
 
 class GptViewModel {
-
     var onReceiveStreamMessage: ((String) -> Void)?
     var onStreamProcessingCompleted: (() -> Void)?
     var streamTmp = ""
@@ -25,7 +24,6 @@ class GptViewModel {
     // MARK: - Работа с текстом
 
     func sendMessage(_ message: String) async {
-        
         messages.append(Chat(role: .user, content: message))
         streamMass.append(streamMessages(message: messages[index].content ?? "ошибка", role: .user))
         index += 1

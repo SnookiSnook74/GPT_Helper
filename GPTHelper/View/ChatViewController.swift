@@ -104,12 +104,12 @@ extension ChatViewController: UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserMessageCell
-            // Пропускаем первые два сообщения которые есть в массиве для настройки контекста 
+            // Пропускаем первые два сообщения которые есть в массиве для настройки контекста
             cell.configure(with: messages[indexPath.row + 2].content ?? "")
             return cell
         }
     }
- 
+
     // Автоматический скролл при больших текстах
     func scrollToBotton() {
         let lastRow = max(0, gptModel.streamMass.count - 1)

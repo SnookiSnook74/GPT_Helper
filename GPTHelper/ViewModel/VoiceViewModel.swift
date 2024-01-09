@@ -10,7 +10,6 @@ import Foundation
 import OpenAI
 
 class VoiceViewModel {
-    
     var gptChatModel = GptViewModel()
     var audioPlayer: AVAudioPlayer?
 
