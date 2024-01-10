@@ -12,6 +12,15 @@ import UIKit
 final class InputAreaView: UIView {
     var onSendButtonTapped: ((String) -> Void)?
 
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 5
+        stackView.alignment = .center
+        return stackView
+    }()
+
     let textField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .none
@@ -65,8 +74,9 @@ final class InputAreaView: UIView {
     }
 
     private func addSubviews() {
-        addSubview(textField)
-        addSubview(sendButton)
+        stackView.addArrangedSubview(textField)
+        stackView.addArrangedSubview(sendButton)
+        addSubview(stackView)
     }
 }
 
@@ -81,17 +91,13 @@ extension InputAreaView {
 extension InputAreaView {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            textField.widthAnchor.constraint(equalToConstant: 280),
-            textField.heightAnchor.constraint(equalToConstant: 40),
-            textField.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10),
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
-        ])
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
 
-        NSLayoutConstraint.activate([
-            sendButton.widthAnchor.constraint(equalToConstant: 44),
-            sendButton.heightAnchor.constraint(equalToConstant: 44),
-            sendButton.centerYAnchor.constraint(equalTo: textField.centerYAnchor),
-            sendButton.trailingAnchor.constraint(equalTo: textField.trailingAnchor, constant: 45),
+            textField.heightAnchor.constraint(equalToConstant: 40),
+
         ])
     }
 }

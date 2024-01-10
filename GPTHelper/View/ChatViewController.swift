@@ -105,7 +105,7 @@ extension ChatViewController: UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "user", for: indexPath) as! UserMessageCell
             // Пропускаем первые два сообщения которые есть в массиве для настройки контекста
-            cell.configure(with: messages[indexPath.row + 2].content ?? "")
+            cell.configure(with: messages[indexPath.row + indexCount].content ?? "")
             return cell
         }
     }

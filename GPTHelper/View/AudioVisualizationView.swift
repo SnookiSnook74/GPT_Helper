@@ -1,5 +1,5 @@
 //
-//  AnimationViewController.swift
+//  AudioVisualizationView.swift
 //  GPTHelper
 //
 //  Created by DonHalab on 09.01.2024.
@@ -14,7 +14,6 @@ class AudioVisualizationView: UIView {
         gptAnimate.translatesAutoresizingMaskIntoConstraints = false
         return gptAnimate
     }()
-    
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +32,6 @@ class AudioVisualizationView: UIView {
 
     func startAnimating() {
         UIView.animate(withDuration: 0.5, delay: 0, options: [.autoreverse, .repeat, .allowUserInteraction], animations: {
-
             self.gptAnimate.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         }) { _ in
             self.gptAnimate.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)

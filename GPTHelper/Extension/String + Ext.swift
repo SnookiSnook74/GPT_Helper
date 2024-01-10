@@ -13,7 +13,8 @@ extension String {
     func applyingBoldToSubstringsEnclosedInAsterisks() -> NSAttributedString {
         let pattern = "\\*\\*(.*?)\\*\\*"
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
-        let attributedString = NSMutableAttributedString(string: self)
+        let normalFontAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
+        let attributedString = NSMutableAttributedString(string: self, attributes: normalFontAttributes)
         let fullRange = NSRange(startIndex..., in: self)
 
         let matches = regex.matches(in: self, options: [], range: fullRange)

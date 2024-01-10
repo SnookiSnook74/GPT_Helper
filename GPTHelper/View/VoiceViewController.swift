@@ -121,6 +121,8 @@ extension VoiceViewController {
                 await result = gptVoice.voiceConvert(data: audioData)
                 await gptChat.sendMessage(result)
                 await gptVoice.voice(messages.last?.content ?? "Повтори")
+                // Переменная которая помогает сохранить переходы между чатом и голосом
+                indexCount += 2
                 voiceAnimate.isHidden = true
                 stackView.isHidden = false
                 voiceAnimate.stopAnimating()

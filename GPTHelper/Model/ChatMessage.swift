@@ -17,5 +17,7 @@ struct streamMessages {
     var role: Chat.Role
 }
 
+var indexCount = 2
+
 var messages: [Chat] = [Chat(role: .user, content: "Ты будешь моим персональным помощником. Меня зовут Анатолий Гарриевич, обращайся ко мне всегда по имени и отчеству. Абсолютно всегда! Не забывай про это!"),
                         Chat(role: .system, content: "Хорошо Анатолий Гарриевич! Чем могу быть полезен")]

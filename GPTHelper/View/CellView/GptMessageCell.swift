@@ -10,12 +10,17 @@ import UIKit
 // MARK: - Ячека ответа бота
 
 final class GptMessageCell: UITableViewCell {
-    let messageLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    let messageTextView: UITextView = {
+        let textView = UITextView()
+        textView.isEditable = false
+        textView.font = UIFont.systemFont(ofSize: 30)
+        textView.isScrollEnabled = false
+        textView.dataDetectorTypes = .all
+        textView.textContainerInset = UIEdgeInsets.zero
+        textView.textContainer.lineFragmentPadding = 0
+        textView.backgroundColor = .clear
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
     }()
 
     let avatarImageView: UIImageView = {
@@ -28,7 +33,7 @@ final class GptMessageCell: UITableViewCell {
     }()
 
     func configure(with message: NSAttributedString) {
-        messageLabel.attributedText = message
+        messageTextView.attributedText = message
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -46,7 +51,7 @@ final class GptMessageCell: UITableViewCell {
 
 extension GptMessageCell {
     private func setupSubviews() {
-        contentView.addSubview(messageLabel)
+        contentView.addSubview(messageTextView)
         contentView.addSubview(avatarImageView)
 
         NSLayoutConstraint.activate([
@@ -57,10 +62,10 @@ extension GptMessageCell {
         ])
 
         NSLayoutConstraint.activate([
-            messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 45),
-            messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            messageLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: -5),
-            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            messageTextView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 45),
+            messageTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            messageTextView.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: -5),
+            messageTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
         ])
 
         avatarImageView.layer.cornerRadius = 30
