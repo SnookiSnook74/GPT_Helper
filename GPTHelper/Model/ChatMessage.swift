@@ -8,7 +8,7 @@
 import Foundation
 import OpenAI
 
-let openAI = OpenAI(apiToken: "")
+let openAI = OpenAI(apiToken: "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")
 
 // MARK: - Модель для хранения стриминовых ответов
 
